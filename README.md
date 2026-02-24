@@ -1,5 +1,7 @@
 # Process vs. Outcome Supervision for Trustworthy LLM Reasoning
 
+![Preview](preview.png)
+
 A comprehensive research project evaluating process-based supervision versus outcome-based supervision in LLM reasoning, with implications for legal and regulatory compliance.
 
 ## 📋 Project Overview
