@@ -1,0 +1,6 @@
+{
+  "outcome_accuracy": 0.8571428571428571,
+  "process_accuracy": 1.0,
+  "structured_accuracy": 0.8571428571428571,
+  "mcnemar_outcome_vs_process_pvalue": 0.6170750774519739
+}

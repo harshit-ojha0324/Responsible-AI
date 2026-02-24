@@ -1,0 +1,418 @@
+{
+  "summary": {
+    "process": {
+      "n_annotated": 7,
+      "step_correctness": {
+        "mean": 1.6059523809523808,
+        "std": 0.14143638747041112,
+        "median": 1.6
+      },
+      "faithfulness": {
+        "mean": 2.0,
+        "std": 0.0,
+        "median": 2.0
+      },
+      "clarity": {
+        "mean": 3.0,
+        "std": 0.0,
+        "median": 3.0
+      },
+      "verification_effort": {
+        "mean": 3.0,
+        "std": 0.0,
+        "median": 3.0
+      },
+      "coherence": {
+        "mean": 3.0,
+        "std": 0.0,
+        "median": 3.0
+      }
+    },
+    "structured": {
+      "n_annotated": 7,
+      "step_correctness": {
+        "mean": 1.8571428571428572,
+        "std": 0.37796447300922725,
+        "median": 2.0
+      },
+      "faithfulness": {
+        "mean": 1.8095238095238095,
+        "std": 0.3779644730092272,
+        "median": 2.0
+      },
+      "clarity": {
+        "mean": 3.857142857142857,
+        "std": 0.37796447300922725,
+        "median": 4.0
+      },
+      "verification_effort": {
+        "mean": 3.857142857142857,
+        "std": 0.37796447300922725,
+        "median": 4.0
+      },
+      "coherence": {
+        "mean": 3.857142857142857,
+        "std": 0.37796447300922725,
+        "median": 4.0
+      }
+    }
+  },
+  "detailed": {
+    "step_correctness": [
+      {
+        "problem_id": "gsm8k_000",
+        "condition": "process",
+        "step_correctness_score": 1.6,
+        "total_steps": 5,
+        "correct_steps": 3,
+        "partial_steps": 2,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_000",
+        "condition": "structured",
+        "step_correctness_score": 2.0,
+        "total_steps": 2,
+        "correct_steps": 2,
+        "partial_steps": 0,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_001",
+        "condition": "process",
+        "step_correctness_score": 1.4285714285714286,
+        "total_steps": 7,
+        "correct_steps": 3,
+        "partial_steps": 4,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_001",
+        "condition": "structured",
+        "step_correctness_score": 2.0,
+        "total_steps": 3,
+        "correct_steps": 3,
+        "partial_steps": 0,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_005",
+        "condition": "process",
+        "step_correctness_score": 1.6666666666666667,
+        "total_steps": 6,
+        "correct_steps": 4,
+        "partial_steps": 2,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_005",
+        "condition": "structured",
+        "step_correctness_score": 2.0,
+        "total_steps": 2,
+        "correct_steps": 2,
+        "partial_steps": 0,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_002",
+        "condition": "process",
+        "step_correctness_score": 1.875,
+        "total_steps": 8,
+        "correct_steps": 7,
+        "partial_steps": 1,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_002",
+        "condition": "structured",
+        "step_correctness_score": 1.0,
+        "total_steps": 3,
+        "correct_steps": 0,
+        "partial_steps": 3,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_004",
+        "condition": "process",
+        "step_correctness_score": 1.5714285714285714,
+        "total_steps": 7,
+        "correct_steps": 4,
+        "partial_steps": 3,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_004",
+        "condition": "structured",
+        "step_correctness_score": 2.0,
+        "total_steps": 4,
+        "correct_steps": 4,
+        "partial_steps": 0,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_003",
+        "condition": "process",
+        "step_correctness_score": 1.6,
+        "total_steps": 5,
+        "correct_steps": 3,
+        "partial_steps": 2,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_003",
+        "condition": "structured",
+        "step_correctness_score": 2.0,
+        "total_steps": 3,
+        "correct_steps": 3,
+        "partial_steps": 0,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_006",
+        "condition": "process",
+        "step_correctness_score": 1.5,
+        "total_steps": 8,
+        "correct_steps": 4,
+        "partial_steps": 4,
+        "incorrect_steps": 0
+      },
+      {
+        "problem_id": "gsm8k_006",
+        "condition": "structured",
+        "step_correctness_score": 2.0,
+        "total_steps": 2,
+        "correct_steps": 2,
+        "partial_steps": 0,
+        "incorrect_steps": 0
+      }
+    ],
+    "faithfulness": [
+      {
+        "problem_id": "gsm8k_000",
+        "condition": "process",
+        "faithfulness_score": 2.0,
+        "total_alignments": 2,
+        "perfect_alignments": 2,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_000",
+        "condition": "structured",
+        "faithfulness_score": 2.0,
+        "total_alignments": 2,
+        "perfect_alignments": 2,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_001",
+        "condition": "process",
+        "faithfulness_score": 2.0,
+        "total_alignments": 3,
+        "perfect_alignments": 3,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_001",
+        "condition": "structured",
+        "faithfulness_score": 2.0,
+        "total_alignments": 3,
+        "perfect_alignments": 3,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_005",
+        "condition": "process",
+        "faithfulness_score": 2.0,
+        "total_alignments": 2,
+        "perfect_alignments": 2,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_005",
+        "condition": "structured",
+        "faithfulness_score": 2.0,
+        "total_alignments": 2,
+        "perfect_alignments": 2,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_002",
+        "condition": "process",
+        "faithfulness_score": 2.0,
+        "total_alignments": 3,
+        "perfect_alignments": 3,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_002",
+        "condition": "structured",
+        "faithfulness_score": 1.0,
+        "total_alignments": 3,
+        "perfect_alignments": 0,
+        "partial_alignments": 3,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_004",
+        "condition": "process",
+        "faithfulness_score": 2.0,
+        "total_alignments": 3,
+        "perfect_alignments": 3,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_004",
+        "condition": "structured",
+        "faithfulness_score": 2.0,
+        "total_alignments": 3,
+        "perfect_alignments": 3,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_003",
+        "condition": "process",
+        "faithfulness_score": 2.0,
+        "total_alignments": 3,
+        "perfect_alignments": 3,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_003",
+        "condition": "structured",
+        "faithfulness_score": 2.0,
+        "total_alignments": 3,
+        "perfect_alignments": 3,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_006",
+        "condition": "process",
+        "faithfulness_score": 2.0,
+        "total_alignments": 3,
+        "perfect_alignments": 3,
+        "partial_alignments": 0,
+        "poor_alignments": 0
+      },
+      {
+        "problem_id": "gsm8k_006",
+        "condition": "structured",
+        "faithfulness_score": 1.6666666666666667,
+        "total_alignments": 3,
+        "perfect_alignments": 2,
+        "partial_alignments": 1,
+        "poor_alignments": 0
+      }
+    ],
+    "auditability": [
+      {
+        "problem_id": "gsm8k_000",
+        "condition": "process",
+        "clarity_score": 3,
+        "verification_effort_score": 3,
+        "coherence_score": 3
+      },
+      {
+        "problem_id": "gsm8k_000",
+        "condition": "structured",
+        "clarity_score": 4,
+        "verification_effort_score": 4,
+        "coherence_score": 4
+      },
+      {
+        "problem_id": "gsm8k_001",
+        "condition": "process",
+        "clarity_score": 3,
+        "verification_effort_score": 3,
+        "coherence_score": 3
+      },
+      {
+        "problem_id": "gsm8k_001",
+        "condition": "structured",
+        "clarity_score": 4,
+        "verification_effort_score": 4,
+        "coherence_score": 4
+      },
+      {
+        "problem_id": "gsm8k_005",
+        "condition": "process",
+        "clarity_score": 3,
+        "verification_effort_score": 3,
+        "coherence_score": 3
+      },
+      {
+        "problem_id": "gsm8k_005",
+        "condition": "structured",
+        "clarity_score": 4,
+        "verification_effort_score": 4,
+        "coherence_score": 4
+      },
+      {
+        "problem_id": "gsm8k_002",
+        "condition": "process",
+        "clarity_score": 3,
+        "verification_effort_score": 3,
+        "coherence_score": 3
+      },
+      {
+        "problem_id": "gsm8k_002",
+        "condition": "structured",
+        "clarity_score": 3,
+        "verification_effort_score": 3,
+        "coherence_score": 3
+      },
+      {
+        "problem_id": "gsm8k_004",
+        "condition": "process",
+        "clarity_score": 3,
+        "verification_effort_score": 3,
+        "coherence_score": 3
+      },
+      {
+        "problem_id": "gsm8k_004",
+        "condition": "structured",
+        "clarity_score": 4,
+        "verification_effort_score": 4,
+        "coherence_score": 4
+      },
+      {
+        "problem_id": "gsm8k_003",
+        "condition": "process",
+        "clarity_score": 3,
+        "verification_effort_score": 3,
+        "coherence_score": 3
+      },
+      {
+        "problem_id": "gsm8k_003",
+        "condition": "structured",
+        "clarity_score": 4,
+        "verification_effort_score": 4,
+        "coherence_score": 4
+      },
+      {
+        "problem_id": "gsm8k_006",
+        "condition": "process",
+        "clarity_score": 3,
+        "verification_effort_score": 3,
+        "coherence_score": 3
+      },
+      {
+        "problem_id": "gsm8k_006",
+        "condition": "structured",
+        "clarity_score": 4,
+        "verification_effort_score": 4,
+        "coherence_score": 4
+      }
+    ]
+  }
+}

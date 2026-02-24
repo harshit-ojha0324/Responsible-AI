@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Process vs. Outcome Supervision</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* --- CORE SETUP --- */
+        * { box-sizing: border-box; }
+        body {
+            background-color: #020617; /* Slate-950 */
+            margin: 0;
+            height: 100vh;
+            width: 100vw;
+            font-family: 'Urbanist', sans-serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #f1f5f9;
+        }
+
+        #presentation-stage {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            perspective: 1000px;
+        }
+
+        /* --- SLIDE CONTAINER --- */
+        .slide-container {
+            background-color: #0f172a; /* Slate-900 */
+            border-radius: 16px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            padding: 40px 60px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            border: 1px solid #1e293b;
+            opacity: 0;
+            transform: translateX(50px) scale(0.95);
+            transition: all 0.6s cubic-bezier(0.25, 0.8, 0.25, 1);
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .slide-container.active {
+            opacity: 1;
+            transform: translateX(0) scale(1);
+            pointer-events: all;
+            visibility: visible;
+            z-index: 10;
+        }
+
+        /* --- TYPOGRAPHY --- */
+        h1 { font-size: 64px; margin-bottom: 20px; line-height: 1.1; background: linear-gradient(to right, #fff, #94a3b8); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
+        h1 span { color: #06b6d4; -webkit-text-fill-color: #06b6d4; }
+        h2 { font-size: 42px; margin: 0 0 30px 0; color: #f8fafc; border-bottom: 1px solid #334155; padding-bottom: 15px; }
+        h3 { font-size: 28px; color: #38bdf8; margin-bottom: 15px; font-weight: 600; }
+        p, li { font-size: 22px; line-height: 1.5; color: #cbd5e1; margin-bottom: 12px; }
+        .small-text { font-size: 16px; color: #64748b; }
+        .stat-number { font-size: 48px; font-weight: bold; color: #22d3ee; }
+        .stat-label { font-size: 18px; text-transform: uppercase; letter-spacing: 1px; color: #94a3b8; }
+
+        /* --- LAYOUTS --- */
+        .two-column { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; height: 100%; }
+        .center-content { display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; height: 100%; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+        /* --- VISUALS --- */
+        .img-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #1e293b;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #334155;
+        }
+        
+        .img-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        /* Cards */
+        .card {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+            transition: transform 0.3s;
+        }
+        .active .card { animation: fadeInUp 0.8s forwards; opacity: 0; transform: translateY(20px); }
+        .active .card:nth-child(1) { animation-delay: 0.1s; }
+        .active .card:nth-child(2) { animation-delay: 0.2s; }
+        .active .card:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Chat Bubble for Case Study */
+        .chat-bubble {
+            background: #334155;
+            padding: 15px 25px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            max-width: 90%;
+        }
+        .chat-bubble.bot { border-left: 4px solid #06b6d4; border-top-left-radius: 4px; }
+        .chat-bubble.user { border-right: 4px solid #f59e0b; border-top-right-radius: 4px; align-self: flex-end; background: #475569; }
+
+        /* --- ANIMATIONS --- */
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* --- NAVIGATION --- */
+        .nav-controls { position: fixed; bottom: 25px; right: 25px; display: flex; gap: 10px; z-index: 100; }
+        .nav-btn { background: rgba(30, 41, 59, 0.8); border: 1px solid #475569; color: #fff; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: 0.2s; backdrop-filter: blur(5px); }
+        .nav-btn:hover { background: #06b6d4; border-color: #06b6d4; }
+        .nav-btn.fullscreen-active { background: #06b6d4; border-color: #06b6d4; }
+        .slide-counter { position: fixed; bottom: 35px; left: 35px; color: #64748b; font-size: 16px; font-weight: 600; letter-spacing: 1px; }
+        
+        /* --- FULLSCREEN MODE --- */
+        body.fullscreen-mode #presentation-stage {
+            width: 100vw;
+            height: 100vh;
+        }
+        
+        body.fullscreen-mode .slide-container {
+            border-radius: 0;
+            border: none;
+        }
+
+    </style>
+</head>
+<body>
+
+<div id="presentation-stage">
+
+    <div class="slide-container center-content active">
+        <h1>Process vs. Outcome<br><span>Supervision for LLMs</span></h1>
+        <p style="font-size: 26px; color: #94a3b8; margin-top: 10px;">For Trustworthy and Interpretable Reasoning</p>
+        <div style="margin-top: 60px; border-top: 1px solid #334155; padding-top: 30px; width: 60%;">
+            <p style="color: #cbd5e1;">Harshit Ojha</p>
+            <p class="small-text">Responsible AI and the Law | December 2025</p>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <h2>Motivation: The "Black Box" Liability</h2>
+        <div class="two-column">
+            <div>
+                <h3>Why it matters for Law</h3>
+                <p><strong>GDPR Art. 22:</strong> Requires meaningful information about the logic involved in automated decisions.</p>
+                <p><strong>EU AI Act:</strong> High-risk systems require transparency and auditability.</p>
+                <p><strong>The Problem:</strong> Outcome-based supervision (just checking the answer) hides the "why." Correct answers derived from hallucinated reasoning create hidden liability.</p>
+            </div>
+            <div class="center-content">
+                <i class="fa-solid fa-scale-balanced" style="font-size: 120px; color: #f59e0b; opacity: 0.8;"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container center-content">
+        <h2>Research Question</h2>
+        <p style="font-size: 32px; max-width: 900px; margin-bottom: 50px;">
+            "How does encouraging and exposing step-by-step reasoning compare to outcome-based supervision in terms of <span style="color:#06b6d4">factual reliability</span> and <span style="color:#06b6d4">interpretability</span>?"
+        </p>
+        <div class="grid-3" style="width: 100%;">
+            <div class="card">
+                <i class="fa-solid fa-bullseye" style="font-size: 40px; color: #ef4444; margin-bottom: 15px;"></i>
+                <h3>Accuracy</h3>
+                <p class="small-text">Is the final answer correct?</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-list-ol" style="font-size: 40px; color: #06b6d4; margin-bottom: 15px;"></i>
+                <h3>Faithfulness</h3>
+                <p class="small-text">Does logic match expert steps?</p>
+            </div>
+            <div class="card">
+                <i class="fa-solid fa-magnifying-glass" style="font-size: 40px; color: #10b981; margin-bottom: 15px;"></i>
+                <h3>Auditability</h3>
+                <p class="small-text">Can a human verify it?</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <h2>Study Design</h2>
+        <div class="two-column">
+            <div>
+                <h3>Dataset: GSM8K</h3>
+                <ul>
+                    <li>Grade School Math 8K (Subset).</li>
+                    <li>Requires multi-step reasoning.</li>
+                    <li>Stratified sampling by difficulty.</li>
+                </ul>
+                <h3 style="margin-top: 30px;">Model</h3>
+                <p><strong>x-ai/grok-4.1-fast</strong></p>
+                <p class="small-text">All experiments conducted using Grok 4.1 Fast model for consistent comparison across conditions.</p>
+                <h3 style="margin-top: 30px;">Three Conditions</h3>
+                <ol>
+                    <li><strong>Outcome:</strong> "Answer the question. Give only final answer."</li>
+                    <li><strong>Process:</strong> "Think step-by-step."</li>
+                    <li><strong>Structured:</strong> "Write as Step 1, Step 2... Final Answer."</li>
+                </ol>
+            </div>
+            <div class="card" style="display:flex; flex-direction:column; justify-content:center;">
+                <h3 style="text-align:center; color:#fff;">Pipeline Overview</h3>
+                <div style="display:flex; flex-direction:column; gap:15px; align-items:center; margin-top:20px;">
+                    <div style="background:#334155; padding:10px 20px; border-radius:8px; width:80%; text-align:center;">Prompt Generation</div>
+                    <i class="fa-solid fa-arrow-down" style="color:#64748b;"></i>
+                    <div style="background:#334155; padding:10px 20px; border-radius:8px; width:80%; text-align:center;">Model Inference</div>
+                    <i class="fa-solid fa-arrow-down" style="color:#64748b;"></i>
+                    <div style="background:#0f172a; border:1px solid #06b6d4; padding:10px 20px; border-radius:8px; width:80%; text-align:center;">Manual Annotation (Phase 3)</div>
+                    <i class="fa-solid fa-arrow-down" style="color:#64748b;"></i>
+                    <div style="background:#334155; padding:10px 20px; border-radius:8px; width:80%; text-align:center;">Metrics Calculation</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <h2>How We Measure Reliability</h2>
+        <div class="two-column">
+            <div style="display: flex; flex-direction: column; gap: 20px;">
+                <div class="card">
+                    <h3>Final Answer Accuracy</h3>
+                    <p class="small-text">Compare extracted final answers against GSM8K ground truth (normalized for formatting).</p>
+                </div>
+                <div class="card">
+                    <h3>Error & Failure Modes</h3>
+                    <p class="small-text">Tag incorrect cases by error type (arithmetic, conceptual, reading, incomplete reasoning, parsing).</p>
+                </div>
+                <div class="card">
+                    <h3>Reasoning Quality Checks</h3>
+                    <p class="small-text">Screen process/structured traces for hallucinations, inconsistencies, and unverifiable steps.</p>
+                </div>
+                <p style="margin-top: 6px; font-size: 18px;"><strong>Goal:</strong> Separate “right answer” from “reliable reasoning,” especially for audit and compliance contexts.</p>
+            </div>
+            <div class="img-container">
+                <img src="01_accuracy_comparison.png" alt="Example Accuracy Visualization">
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <h2>How We Measure Interpretability</h2>
+        <div class="two-column" style="grid-template-columns: 2fr 1fr;">
+            <div class="img-container">
+                <img src="03_interpretability_metrics.png" alt="Example Interpretability Visualization">
+            </div>
+            <div>
+                <div class="card" style="margin-bottom: 16px;">
+                    <h3>Step Correctness (0–2)</h3>
+                    <p class="small-text">Are intermediate steps mathematically valid and justified?</p>
+                </div>
+                <div class="card" style="margin-bottom: 16px;">
+                    <h3>Faithfulness (0–2)</h3>
+                    <p class="small-text">Do the steps align with an expert solution path (not just the final answer)?</p>
+                </div>
+                <div class="card">
+                    <h3>Auditability (1–5)</h3>
+                    <p class="small-text">Clarity, verification effort, and coherence—how easy is it for a human to check?</p>
+                </div>
+                <p style="margin-top: 18px; font-size: 18px;"><strong>Goal:</strong> Produce explanations that are useful for oversight (and avoid the “illusion of explainability”).</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <h2>Analysis Plan</h2>
+        <div class="two-column">
+            <div class="img-container">
+                <img src="06_correlation_heatmap.png" alt="Example Correlation Heatmap">
+            </div>
+            <div>
+                <h3>What we analyze</h3>
+                <ul>
+                    <li><strong>Across conditions:</strong> accuracy, error types, and reasoning-quality labels.</li>
+                    <li><strong>Within process traces:</strong> step correctness ↔ faithfulness ↔ auditability relationships.</li>
+                    <li><strong>Significance:</strong> paired tests where applicable; confidence intervals for key comparisons.</li>
+                    <li><strong>Outputs:</strong> plots/tables that support transparent reporting and traceable auditing.</li>
+                </ul>
+                <div class="img-container" style="height: 200px; margin-top: 20px;">
+                    <img src="07_faithfulness_vs_accuracy.png" alt="Example Scatter Plot">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container">
+        <h2> Case Study</h2>
+        <div class="two-column">
+            <div style="display:flex; flex-direction:column; justify-content:center;">
+                <div class="chat-bubble user">
+                    <p style="margin:0; font-size: 18px;"><strong>Problem:</strong> Janet has 3 apples and 5 oranges. Cost is $2 each. Total?</p>
+                </div>
+                <div class="chat-bubble bot">
+                    <p style="margin:0; font-size: 18px;"><strong>Response:</strong> Step 1: 3 apples + 5 oranges = 8 fruits. Step 2: 8 × $2 = $16. Final Answer: $16</p>
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <h3>Analysis</h3>
+                    <p class="small-text">This example demonstrates how structured reasoning enables verification of each step, supporting auditability requirements.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="slide-container center-content">
+        <h2>Thank You</h2>
+        <p style="font-size: 28px; color: #94a3b8; margin-top: 30px;">Questions?</p>
+        <div style="margin-top: 60px; border-top: 1px solid #334155; padding-top: 30px; width: 60%;">
+            <p style="color: #cbd5e1;">Harshit Ojha</p>
+            <p class="small-text">Responsible AI and the Law | December 2025</p>
+            <p class="small-text" style="margin-top: 15px;">Model: <strong>x-ai/grok-4.1-fast</strong></p>
+        </div>
+    </div>
+
+</div>
+
+<div class="nav-controls">
+    <button class="nav-btn" id="prevBtn" title="Previous Slide">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+    <button class="nav-btn" id="nextBtn" title="Next Slide">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    <button class="nav-btn" id="fullscreenBtn" title="Toggle Fullscreen">
+        <i class="fa-solid fa-expand"></i>
+    </button>
+</div>
+
+<div class="slide-counter">
+    <span id="currentSlide">1</span> / <span id="totalSlides">9</span>
+</div>
+
+<script>
+    const slides = document.querySelectorAll('.slide-container');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+    
+    document.getElementById('totalSlides').textContent = totalSlides;
+    
+    function showSlide(n) {
+        slides[currentSlide].classList.remove('active');
+        currentSlide = (n + totalSlides) % totalSlides;
+        slides[currentSlide].classList.add('active');
+        document.getElementById('currentSlide').textContent = currentSlide + 1;
+    }
+    
+    document.getElementById('nextBtn').addEventListener('click', () => {
+        showSlide(currentSlide + 1);
+    });
+    
+    document.getElementById('prevBtn').addEventListener('click', () => {
+        showSlide(currentSlide - 1);
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+            showSlide(currentSlide + 1);
+        } else if (e.key === 'ArrowLeft') {
+            showSlide(currentSlide - 1);
+        } else if (e.key === 'f' || e.key === 'F') {
+            toggleFullscreen();
+        }
+    });
+    
+    // Fullscreen functionality
+    const fullscreenBtn = document.getElementById('fullscreenBtn');
+    const body = document.body;
+    
+    function toggleFullscreen() {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && 
+            !document.mozFullScreenElement && !document.msFullscreenElement) {
+            // Enter fullscreen
+            if (document.documentElement.requestFullscreen) {
+                document.documentElement.requestFullscreen();
+            } else if (document.documentElement.webkitRequestFullscreen) {
+                document.documentElement.webkitRequestFullscreen();
+            } else if (document.documentElement.mozRequestFullScreen) {
+                document.documentElement.mozRequestFullScreen();
+            } else if (document.documentElement.msRequestFullscreen) {
+                document.documentElement.msRequestFullscreen();
+            }
+            body.classList.add('fullscreen-mode');
+            fullscreenBtn.classList.add('fullscreen-active');
+            fullscreenBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+        } else {
+            // Exit fullscreen
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+                document.webkitExitFullscreen();
+            } else if (document.mozCancelFullScreen) {
+                document.mozCancelFullScreen();
+            } else if (document.msExitFullscreen) {
+                document.msExitFullscreen();
+            }
+            body.classList.remove('fullscreen-mode');
+            fullscreenBtn.classList.remove('fullscreen-active');
+            fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+        }
+    }
+    
+    fullscreenBtn.addEventListener('click', toggleFullscreen);
+    
+    // Listen for fullscreen changes
+    document.addEventListener('fullscreenchange', updateFullscreenButton);
+    document.addEventListener('webkitfullscreenchange', updateFullscreenButton);
+    document.addEventListener('mozfullscreenchange', updateFullscreenButton);
+    document.addEventListener('MSFullscreenChange', updateFullscreenButton);
+    
+    function updateFullscreenButton() {
+        if (document.fullscreenElement || document.webkitFullscreenElement || 
+            document.mozFullScreenElement || document.msFullscreenElement) {
+            body.classList.add('fullscreen-mode');
+            fullscreenBtn.classList.add('fullscreen-active');
+            fullscreenBtn.innerHTML = '<i class="fa-solid fa-compress"></i>';
+        } else {
+            body.classList.remove('fullscreen-mode');
+            fullscreenBtn.classList.remove('fullscreen-active');
+            fullscreenBtn.innerHTML = '<i class="fa-solid fa-expand"></i>';
+        }
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,182 @@
+{
+  "accuracy_comparison": {
+    "comparison_table": [
+      {
+        "Condition": "outcome",
+        "Accuracy": 0.8571428571428571
+      },
+      {
+        "Condition": "process",
+        "Accuracy": 1.0
+      },
+      {
+        "Condition": "structured",
+        "Accuracy": 0.8571428571428571
+      }
+    ],
+    "paired_tests": {
+      "outcome_vs_process": {
+        "t_stat": -0.9999999999999998,
+        "p_value": 0.3559176837495819
+      },
+      "process_vs_structured": {
+        "t_stat": 0.9999999999999998,
+        "p_value": 0.3559176837495819
+      }
+    },
+    "effect_size_outcome_vs_process": -0.5345224838248489
+  },
+  "correlations": {
+    "pearson": {
+      "Accuracy": {
+        "Accuracy": 1.0,
+        "Step Correctness": 0.6935939982173289,
+        "Faithfulness": 0.9464574146347641,
+        "Clarity": 0.24019223070763066,
+        "Verification Effort": 0.24019223070763066,
+        "Coherence": 0.24019223070763066
+      },
+      "Step Correctness": {
+        "Accuracy": 0.6935939982173289,
+        "Step Correctness": 1.0,
+        "Faithfulness": 0.5913203020743614,
+        "Clarity": 0.7947532147625429,
+        "Verification Effort": 0.7947532147625429,
+        "Coherence": 0.7947532147625429
+      },
+      "Faithfulness": {
+        "Accuracy": 0.9464574146347641,
+        "Step Correctness": 0.5913203020743614,
+        "Faithfulness": 1.0,
+        "Clarity": 0.12961896184130323,
+        "Verification Effort": 0.12961896184130323,
+        "Coherence": 0.12961896184130323
+      },
+      "Clarity": {
+        "Accuracy": 0.24019223070763066,
+        "Step Correctness": 0.7947532147625429,
+        "Faithfulness": 0.12961896184130323,
+        "Clarity": 1.0,
+        "Verification Effort": 1.0,
+        "Coherence": 1.0
+      },
+      "Verification Effort": {
+        "Accuracy": 0.24019223070763066,
+        "Step Correctness": 0.7947532147625429,
+        "Faithfulness": 0.12961896184130323,
+        "Clarity": 1.0,
+        "Verification Effort": 1.0,
+        "Coherence": 1.0
+      },
+      "Coherence": {
+        "Accuracy": 0.24019223070763066,
+        "Step Correctness": 0.7947532147625429,
+        "Faithfulness": 0.12961896184130323,
+        "Clarity": 1.0,
+        "Verification Effort": 1.0,
+        "Coherence": 1.0
+      }
+    },
+    "spearman": {
+      "Accuracy": {
+        "Accuracy": 1.0,
+        "Step Correctness": 0.4660297961322375,
+        "Faithfulness": 0.7337993857053429,
+        "Clarity": 0.24019223070763068,
+        "Verification Effort": 0.24019223070763068,
+        "Coherence": 0.24019223070763068
+      },
+      "Step Correctness": {
+        "Accuracy": 0.4660297961322375,
+        "Step Correctness": 1.0,
+        "Faithfulness": 0.17098618906111104,
+        "Clarity": 0.895493890473796,
+        "Verification Effort": 0.895493890473796,
+        "Coherence": 0.895493890473796
+      },
+      "Faithfulness": {
+        "Accuracy": 0.7337993857053429,
+        "Step Correctness": 0.17098618906111104,
+        "Faithfulness": 1.0,
+        "Clarity": -0.0293754852240759,
+        "Verification Effort": -0.0293754852240759,
+        "Coherence": -0.0293754852240759
+      },
+      "Clarity": {
+        "Accuracy": 0.24019223070763068,
+        "Step Correctness": 0.895493890473796,
+        "Faithfulness": -0.0293754852240759,
+        "Clarity": 1.0,
+        "Verification Effort": 1.0,
+        "Coherence": 1.0
+      },
+      "Verification Effort": {
+        "Accuracy": 0.24019223070763068,
+        "Step Correctness": 0.895493890473796,
+        "Faithfulness": -0.0293754852240759,
+        "Clarity": 1.0,
+        "Verification Effort": 1.0,
+        "Coherence": 1.0
+      },
+      "Coherence": {
+        "Accuracy": 0.24019223070763068,
+        "Step Correctness": 0.895493890473796,
+        "Faithfulness": -0.0293754852240759,
+        "Clarity": 1.0,
+        "Verification Effort": 1.0,
+        "Coherence": 1.0
+      }
+    },
+    "accuracy_correlations": {
+      "Faithfulness": {
+        "pearson_r": 0.9464574146347641,
+        "p_value": 3.0292084031928784e-07
+      },
+      "Step Correctness": {
+        "pearson_r": 0.6935939982173289,
+        "p_value": 0.005938888001859315
+      },
+      "Clarity": {
+        "pearson_r": 0.24019223070763066,
+        "p_value": 0.4081582068554267
+      },
+      "Verification Effort": {
+        "pearson_r": 0.24019223070763066,
+        "p_value": 0.4081582068554267
+      },
+      "Coherence": {
+        "pearson_r": 0.24019223070763066,
+        "p_value": 0.4081582068554267
+      }
+    },
+    "n_samples": 14
+  },
+  "summary_statistics": {
+    "conditions": [
+      "outcome",
+      "process",
+      "structured"
+    ],
+    "metrics": {
+      "outcome": {
+        "accuracy": 0.8571428571428571
+      },
+      "process": {
+        "accuracy": 1.0,
+        "step_correctness": 1.6059523809523808,
+        "faithfulness": 2.0,
+        "clarity": 3.0,
+        "verification_effort": 3.0,
+        "coherence": 3.0
+      },
+      "structured": {
+        "accuracy": 0.8571428571428571,
+        "step_correctness": 1.8571428571428572,
+        "faithfulness": 1.8095238095238095,
+        "clarity": 3.857142857142857,
+        "verification_effort": 3.857142857142857,
+        "coherence": 3.857142857142857
+      }
+    }
+  }
+}
